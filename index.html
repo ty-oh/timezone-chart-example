@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DST Start & End Charts</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      display: block;
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>DST 시계열 차트</h2>
+  <p>아래는 서머타임 시작과 종료 시점의 30분 간격 시계열 차트입니다 (뉴욕 기준).</p>
+
+  <h3>🕒 DST 시작 (2025년 3월 9일)</h3>
+  <canvas id="dst-start" width="900" height="300"></canvas>
+
+  <h3>🕒 DST 종료 (2025년 11월 2일)</h3>
+  <canvas id="dst-end" width="900" height="300"></canvas>
+
+  <!-- CDN 라이브러리 -->
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/utc.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/timezone.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+  <!-- 외부 스크립트 -->
+  <script src="chart.js"></script>
+</body>
+</html>

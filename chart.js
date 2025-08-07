@@ -4,19 +4,14 @@ dayjs.extend(dayjs_plugin_timezone);
 
 const tz = 'America/New_York';
 
-function generateTimeSeries(startStr, endStr) {
-  const start = dayjs.tz(startStr, tz);
-  const end = dayjs.tz(endStr, tz);
+function generateTimeSeries(startUnix, endUnix, step = 30 * 60 * 1000) {
   const data = [];
 
-  let current = start;
-
-  while (current.isBefore(end)) {
+  for (let ts = startUnix; ts <= endUnix; ts += step) {
     data.push({
-      unixtime: current.valueOf(),
+      unixtime: ts,
       value: Math.random() * 100
     });
-    current = current.add(30, 'minute');
   }
 
   return data;
@@ -96,10 +91,16 @@ function renderChart(canvasId, data) {
   });
 }
 
-// 🔹 DST 시작: 2025-03-09 (02:00 → 03:00 skip)
-const dstStartData = generateTimeSeries('2025-03-09T00:00:00', '2025-03-09T12:00:00');
+// DST 시작: 2025-03-09 (02:00 → 03:00 skip)
+const dstStartData = generateTimeSeries(
+  dayjs.tz('2025-03-09T00:00:00', tz).valueOf(),
+  dayjs.tz('2025-03-09T12:00:00', tz).valueOf()
+);
 renderChart('dst-start', dstStartData);
 
-// 🔹 DST 종료: 2025-11-02 (01:00 → 01:00 반복)
-const dstEndData = generateTimeSeries('2025-11-02T00:00:00', '2025-11-02T12:00:00');
+// DST 종료: 2025-11-02 (01:00 → 01:00 반복)
+const dstEndData = generateTimeSeries(
+  dayjs.tz('2025-11-02T00:00:00', tz).valueOf(),
+  dayjs.tz('2025-11-02T12:00:00', tz).valueOf()
+);
 renderChart('dst-end', dstEndData);
